@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lirik</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    #lyrics {
+      font-size: 1.5em;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>❤️LIRIK❤️</h1>
+  <div id="lyrics"></div>
+  
+  <!-- Music Player -->
+  <audio id="background-music" autoplay muted>
+    <source src="audio/dj_gak_pake_lama.mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const lyrics = [
+      { text: "Setiap kali kita bertemu", delay: 100 },
+      { text: "Aku lihat kamu senyum padaku", delay: 100 },
+      { text: "Ku tahu kamu suka padaku", delay: 100 },
+      { text: "Tapi kamu ragu bilang begitu", delay: 100 },
+      { text: "Terlalu lama kamu membuang waktumu", delay: 190 },
+      { text: "Terlalu lama memendam rasa", delay: 220 },
+      { text: "Gak pake lama", delay: 150 },
+      { text: "Bilang saja kalau kau suka", delay: 160 },
+      { text: "Gak pake lama", delay: 150 },
+      { text: "Bilang saja kalau kau cinta", delay: 160 },
+      { text: "Dan aku juga suka", delay: 170 },
+      { text: "Suka kamu", delay: 140 },
+      { text: "Ku tunggu sampai kamu bilang I Love You", delay: 170 },
+      { text: "❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️", delay: 150 },
+    ];
+
+    const lyricsContainer = document.getElementById('lyrics');
+    const audio = document.getElementById('background-music');
+
+    // Play the audio from 0:00 to 1:04
+    function playSegment(start, end) {
+      audio.currentTime = start; // Set the starting time (in seconds)
+      audio.play();
+
+      // Stop the audio after the specified duration
+      setTimeout(() => {
+        audio.pause();
+      }, (end - start) * 1000); // Convert duration to milliseconds
+    }
+
+    async function typeLyrics() {
+      for (const line of lyrics) {
+        for (const char of line.text) {
+          lyricsContainer.textContent += char;
+          await new Promise(resolve => setTimeout(resolve, line.delay));
+        }
+        lyricsContainer.textContent += '\n';
+      }
+    }
+
+    // Start the lyrics and music playback
+    window.addEventListener('load', () => {
+      audio.muted = false; // Unmute after page loads
+      playSegment(0, 64); // Play from 0 seconds to 64 seconds
+      typeLyrics();
+    });
+
+    document.body.addEventListener('click', () => {
+      audio.play();
+    });
+  </script>
+</body>
+</html>
